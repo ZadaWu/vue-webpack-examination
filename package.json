@@ -2,8 +2,9 @@
   "name": "vue-webpack-examination",
   "version": "1.0.0",
   "description": "考试问卷",
-  "main": "index.js",
+  "private": true,
   "scripts": {
+    "bundle": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/ZadaWu/vue-webpack-examination/issues"
   },
-  "homepage": "https://github.com/ZadaWu/vue-webpack-examination#readme"
+  "homepage": "https://github.com/ZadaWu/vue-webpack-examination#readme",
+  "devDependencies": {
+    "file-loader": "^4.3.0",
+    "url-loader": "^2.3.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
 }
