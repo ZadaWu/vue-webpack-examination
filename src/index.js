@@ -1,11 +1,3 @@
-import avator from './open-btn.png';
-import style from './index.scss';
-import createAvatar from './js/createAvator';
-
-createAvatar()
-let img = new Image();
-img.src = avator;
-img.classList.add(style.avatar);
-
-let root = document.getElementById('root');
-root.append(img);
+var root = document.getElementById('root');
+import './index.scss'
+root.innerHTML = '<i class="web-font">明月几时有，自己抬头瞅</i>'

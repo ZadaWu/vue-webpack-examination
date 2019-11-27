@@ -19,8 +19,10 @@
   "homepage": "https://github.com/ZadaWu/vue-webpack-examination#readme",
   "devDependencies": {
     "autoprefixer": "^9.7.2",
+    "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
     "file-loader": "^4.3.0",
+    "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.13.0",
     "postcss-loader": "^3.0.0",
     "sass-loader": "^8.0.0",

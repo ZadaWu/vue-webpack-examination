@@ -1,11 +1,17 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
     mode: "production",
-    entry: './src/index.js',
+    entry: {
+        main: './src/index.js',
+        sub: './src/index.js'
+    },
     output: {
-        filename: "bundle.js",
+        filename: "[name].js", //name 这里name指的就是前面entry中对应的main和sub
         path: path.resolve(__dirname, 'dist')
+        // publicPath: 'http://cdn.com.cn' //打包完成之后我们会把这些打包好的js文件托管到CDN上
     },
     module: {
         rules: [{
@@ -44,6 +50,17 @@ module.exports = {
             // 所以当我们去打包一个sass文件的时候，首先会执行sass-loader，对sass代码进行翻译，翻译成css代码之后给到css-loader,
             // 然后css-loader把所有的css合并成一个css模块，最后被style-loader挂载到页面的head中去
             // postcss-loader为属性添加厂商前缀
+        }, {
+            test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+            use: ['file-loader']
         }]
-    }
-}
+    },
+    plugins: [new HtmlWebpackPlugin({
+        template: 'src/index.html', //意思是打包的时候以哪个html文件为模板
+        filename: 'index.html', // 默认情况下生成的html文件叫index.html,可以自定义
+        title: 'test App', // 为打包后的index.html配置title，这里配置后，在src中的index.html模板中就不能写死了，需要<%= htmlWebpackPlugin.options.title %>这样写才能生效
+        minify: {
+            collapseWhitespace: true // 把生成的index.html文件的内容的没用空格去掉
+        }
+    }), new CleanWebpackPlugin()]
+};
