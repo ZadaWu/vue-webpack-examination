@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
     mode: "production",
@@ -8,7 +9,7 @@ module.exports = {
     devtool: 'cheap-module-eval-source-map',
     // 在 localhost:8080 下建立服务，将 dist 目录下的文件，作为可访问文件。
     devServer: {
-        contentBase: './dist',
+        contentBase: './dist', // 是指以哪个目录为静态服务
         open: true, //自动打开页面
         port: 8080, // 设置端口号
         // 如果你有单独的后端开发服务器 API，并且希望在同域名下发送 API 请求 ，那么代理某些 URL 会很有用
@@ -16,8 +17,9 @@ module.exports = {
         // 请求到 /api/users 现在会被代理到请求 http://localhost:3000/api/users
         proxy: {
             '/api': 'http://localhost:3000'
-        }
-
+        },
+        hot: true, // 启用 webpack 的模块热替换特性
+        hotOnly: true // 即使HMR功能不生效，也不让浏览器自动刷新
     },
     performance: {
         hints: process.env.NODE_ENV === 'production' ? "warning" : false
@@ -34,7 +36,6 @@ module.exports = {
     output: {
         filename: "[name].js", //name 这里name指的就是前面entry中对应的main和sub
         path: path.resolve(__dirname, 'dist')
-        // publicPath: 'http://cdn.com.cn' //打包完成之后我们会把这些打包好的js文件托管到CDN上
     },
     module: {
         rules: [{
@@ -74,16 +75,27 @@ module.exports = {
             // 然后css-loader把所有的css合并成一个css模块，最后被style-loader挂载到页面的head中去
             // postcss-loader为属性添加厂商前缀
         }, {
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                'css-loader',
+                'postcss-loader'
+            ]
+        }, {
             test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
             use: ['file-loader']
         }]
     },
-    plugins: [new HtmlWebpackPlugin({
-        template: 'src/index.html', //意思是打包的时候以哪个html文件为模板
-        filename: 'index.html', // 默认情况下生成的html文件叫index.html,可以自定义
-        title: 'test App', // 为打包后的index.html配置title，这里配置后，在src中的index.html模板中就不能写死了，需要<%= htmlWebpackPlugin.options.title %>这样写才能生效
-        minify: {
-            collapseWhitespace: true // 把生成的index.html文件的内容的没用空格去掉
-        }
-    }), new CleanWebpackPlugin()]
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'src/index.html', //意思是打包的时候以哪个html文件为模板
+            filename: 'index.html', // 默认情况下生成的html文件叫index.html,可以自定义
+            title: 'test App', // 为打包后的index.html配置title，这里配置后，在src中的index.html模板中就不能写死了，需要<%= htmlWebpackPlugin.options.title %>这样写才能生效
+            minify: {
+                collapseWhitespace: true // 把生成的index.html文件的内容的没用空格去掉
+            }
+        }),
+        new CleanWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin()
+    ]
 };
