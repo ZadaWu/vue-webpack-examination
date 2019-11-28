@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 module.exports = {
     mode: "production",
@@ -39,6 +40,22 @@ module.exports = {
     },
     module: {
         rules: [{
+            test: /\.vue$/,
+            loader: 'vue-loader'
+        }, {
+            test: /\.js$/,
+            exclude: /node_modules/, //如果js文件在node_modules里面，就不使用这个babel-loader了
+            loader: 'babel-loader', // webpack与es通信
+            options: {
+                presets: [["@babel/preset-env", {
+                    targets: {
+                      chrome: '67' // webpack打包的时候会判断Chrome浏览器67以上的版本是否兼容ES6，如果兼容它打包的时候就不会做ES6转ES5,如果不兼容就会对ES6转ES5操作
+                    },
+                    useBuiltIns: 'usage', // 根据业务代码决定补充什么内容
+                    corejs: 3
+                }]] // ES6语法被翻译成ES5
+            }
+        }, {
             test: /\.(png|svg|jpg|gif)$/,
             use: [
                 // url-loader对于图片较小的可以用base64进行压缩，剩下的大图片进入直接放到指定文件夹
@@ -57,6 +74,7 @@ module.exports = {
             // test: /\.css$/,
             test: /\.scss$/,
             use: [
+                'vue-style-loader',
                 'style-loader', // 将 JS 字符串生成为 style 节点
                 {
                     loader: 'css-loader',
@@ -77,6 +95,7 @@ module.exports = {
         }, {
             test: /\.css$/,
             use: [
+                'vue-style-loader',
                 'style-loader',
                 'css-loader',
                 'postcss-loader'
@@ -96,6 +115,7 @@ module.exports = {
             }
         }),
         new CleanWebpackPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new VueLoaderPlugin()
     ]
 };
