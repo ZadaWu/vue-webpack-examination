@@ -4,7 +4,9 @@ import App from './index.vue'
 /* eslint-disable no-new */
 
 const root = document.createElement('div');//创建一个div
+root.id = 'app'
 document.body.appendChild(root);//插入到body中
+
 
 new Vue({
     render: (h) => h(App)

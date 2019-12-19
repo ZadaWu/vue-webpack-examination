@@ -6,7 +6,19 @@
 
 <script>
 export default {
-    name: 'app'
+    name: 'app',
+    created() {
+        const arr = [
+            new Promise(() => {}),
+            new Promise(() => {})
+        ];
+
+        console.log(15)
+
+        arr.map((item, index) => {
+            console.log(item, index)
+        })
+    }
 }
 </script>
 <style scoped>

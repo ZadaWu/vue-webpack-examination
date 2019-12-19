@@ -47,13 +47,6 @@ module.exports = {
             exclude: /node_modules/, //如果js文件在node_modules里面，就不使用这个babel-loader了
             loader: 'babel-loader', // webpack与es通信
             options: {
-                presets: [["@babel/preset-env", {
-                    targets: {
-                      chrome: '67' // webpack打包的时候会判断Chrome浏览器67以上的版本是否兼容ES6，如果兼容它打包的时候就不会做ES6转ES5,如果不兼容就会对ES6转ES5操作
-                    },
-                    useBuiltIns: 'usage', // 根据业务代码决定补充什么内容
-                    corejs: 3
-                }]] // ES6语法被翻译成ES5
             }
         }, {
             test: /\.(png|svg|jpg|gif)$/,
