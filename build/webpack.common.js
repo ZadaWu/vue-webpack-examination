@@ -90,7 +90,11 @@ module.exports = {
         splitChunks: {
             chunks: 'all',// 分割所有代码包括同步代码和异步代码,默认chunks:'async'分割异步代码
             cacheGroups: {
-                vendors: false,
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10,
+                    filename: 'vendors.js'
+                },
                 default: false
             }
         }
