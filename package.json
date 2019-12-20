@@ -10,6 +10,7 @@
     "bundle": "webpack",
     "watch": "webpack --watch",
     "start": "webpack-dev-server",
+    "dev-build": "webpack --config ./build/webpack.dev.js",
     "dev": "webpack-dev-server --config ./build/webpack.dev.js",
     "build": "webpack --config ./build/webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -26,6 +27,7 @@
   "homepage": "https://github.com/ZadaWu/vue-webpack-examination#readme",
   "devDependencies": {
     "@babel/core": "^7.7.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
     "autoprefixer": "^9.7.2",

@@ -9,5 +9,5 @@
   }],
     "@babel/preset-react"
   ], // ES6语法被翻译成ES5
-  "plugins": ["dynamic-import-webpack"] // 异步模块的引入
+  "plugins": ["@babel/plugin-syntax-dynamic-import"] // 异步模块的引入
 }
