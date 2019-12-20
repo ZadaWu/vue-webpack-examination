@@ -8,5 +8,6 @@
     "corejs": 3
   }],
     "@babel/preset-react"
-  ] // ES6语法被翻译成ES5
+  ], // ES6语法被翻译成ES5
+  "plugins": ["dynamic-import-webpack"] // 异步模块的引入
 }

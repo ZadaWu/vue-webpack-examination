@@ -4,7 +4,6 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
     entry: {
-        lodash: './src/lodash.js',
         main: './src/index.js'
         // sub: './src/index.js'
     },
@@ -86,5 +85,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css' //打包后的css文件名
         })
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all'// 分割所有代码包括同步代码和异步代码,默认chunks:'async'分割异步代码
+        }
+    },
 };

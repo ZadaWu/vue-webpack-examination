@@ -23,12 +23,6 @@ const devConfig = {
     performance: {
         hints: process.env.NODE_ENV === 'production' ? "warning" : false
     },
-    optimization: {
-        splitChunks: {
-            chunks: 'all'
-        },
-        usedExports: true
-    },
     output: {
         filename: "[name].js", //name 这里name指的就是前面entry中对应的main和sub
         path: path.resolve(__dirname, 'dist')
