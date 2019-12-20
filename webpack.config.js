@@ -2,7 +2,10 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const webpack = require('webpack');
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+// const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')       // 默认打包后只能插入<style>标签内，这个插件可以将css单独打包成文件，以<link>形式引入
+const PurifyCSS = require('purifycss-webpack');
+const glob = require('glob-all');
 
 module.exports = {
     mode: "production",
@@ -39,10 +42,12 @@ module.exports = {
         path: path.resolve(__dirname, 'dist')
     },
     module: {
-        rules: [{
-            test: /\.vue$/,
-            loader: 'vue-loader'
-        }, {
+        rules: [
+        //     {
+        //     test: /\.vue$/,
+        //     loader: 'vue-loader'
+        // },
+        {
             test: /\.js$/,
             exclude: /node_modules/, //如果js文件在node_modules里面，就不使用这个babel-loader了
             loader: 'babel-loader', // webpack与es通信
@@ -88,7 +93,7 @@ module.exports = {
         }, {
             test: /\.css$/,
             use: [
-                'vue-style-loader',
+                // 'vue-style-loader',
                 'style-loader',
                 'css-loader',
                 'postcss-loader'
@@ -97,6 +102,9 @@ module.exports = {
             test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
             use: ['file-loader']
         }]
+    },
+    optimization: {
+        usedExports: true
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -109,6 +117,15 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new VueLoaderPlugin()
+        // new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            filename: '[name].css' //打包后的css文件名
+        }),
+        new PurifyCSS({
+            paths: glob.sync([
+                //要做css treeshaking的文件
+                path.resolve(__dirname, './src/*.js')
+            ])
+        })
     ]
 };
