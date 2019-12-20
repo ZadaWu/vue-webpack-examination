@@ -89,13 +89,25 @@ module.exports = {
     optimization: {
         splitChunks: {
             chunks: 'all',// 分割所有代码包括同步代码和异步代码,默认chunks:'async'分割异步代码
+            chunks: 'all',
+            minSize: 30000,
+            minChunks: 2, //指的是当一个模块被用了多少次的时候，才对它进行代码分割
+            maxAsyncRequests: 5, // 默认是5，指的是同时加载的模块数最大是5个
+            maxInitialRequests: 3, // 指入口文件的最大并行请求数，意思是入口文件引入的库如果做代码分割也最多只能分割出3个js文件，超过3个就不会做代码分割了，这些配置一般按照默认配置来即可
+            automaticNameDelimiter: '~', //意思是打包生成后的文件中间使用什么连接符
+            name: true,//配置true，意思是将根据块和缓存组密钥自动生成名称，一般采用默认值
             cacheGroups: {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     priority: -10,
                     filename: 'vendors.js'
                 },
-                default: false
+                default: {
+                    // minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true, // 以这个参数的意思是如果一个模块已经被打包过了，如果再打包的时候就忽略这个模块，直接使用之前被打包好的那个
+                    filename: 'common.js'
+                }
             }
         }
     },
