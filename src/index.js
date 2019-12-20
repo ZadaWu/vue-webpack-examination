@@ -18,7 +18,21 @@
 // })
 
 // 同步引入lodash
-import _ from 'lodash';
-var ele = document.createElement('div');
-ele.innerHTML = _.join(['Hello', 'World'], '-');
-document.body.appendChild(ele);
+// import _ from 'lodash';
+// var ele = document.createElement('div');
+// ele.innerHTML = _.join(['Hello', 'World'], '-');
+// document.body.appendChild(ele);
+
+function getComponent() {
+    return import(/*webpackChunkName:"lodash" */'lodash').then(_ => {
+        var ele = document.createElement('div');
+        ele.innerHTML = _.join(['Hello', 'World'], '-');
+        return ele;
+    })
+}
+
+document.addEventListener('click', () => {
+    getComponent().then(ele => {
+        document.body.appendChild(ele);
+    })
+})
