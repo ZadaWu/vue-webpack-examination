@@ -1,6 +1,4 @@
 const webpack = require('webpack');
-const merge = require('webpack-merge');
-const commonConfig = require('./webpack.common.js');
 let path = require('path');
 
 const devConfig = {
@@ -11,7 +9,7 @@ const devConfig = {
     devServer: {
         contentBase: './dist', // 是指以哪个目录为静态服务
         open: true, //自动打开页面
-        port: 8080, // 设置端口号
+        port: 8088, // 设置端口号
         // 如果你有单独的后端开发服务器 API，并且希望在同域名下发送 API 请求 ，那么代理某些 URL 会很有用
         // 在 localhost:3000 上有后端服务的话，你可以这样启用代理：
         // 请求到 /api/users 现在会被代理到请求 http://localhost:3000/api/users
@@ -35,4 +33,4 @@ const devConfig = {
         chunkFilename: '[name].chunk.js'
     }
 };
-module.exports = merge(commonConfig, devConfig);
+module.exports = devConfig

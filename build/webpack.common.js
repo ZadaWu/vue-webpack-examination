@@ -5,7 +5,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
-module.exports = {
+const merge = require('webpack-merge');
+const devConfig = require('./webpack.dev.js');
+const prodConfig = require('./webpack.prod.js');
+
+const commonConfig= {
     entry: {
         main: './src/index.js'
     },
@@ -127,4 +131,12 @@ module.exports = {
             new OptimizeCSSAssetsPlugin({})
         ]
     },
+};
+
+module.exports = env => {
+   if(env && env.production) {
+        return merge(commonConfig, prodConfig);
+   } else {
+        return merge(commonConfig, devConfig);
+   }
 };
