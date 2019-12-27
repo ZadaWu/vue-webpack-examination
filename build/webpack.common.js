@@ -22,9 +22,12 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /node_modules/, //如果js文件在node_modules里面，就不使用这个babel-loader了
-                loader: 'babel-loader', // webpack与es通信
-                options: {
-                }
+                // loader: 'babel-loader', // webpack与es通信
+                use: [{
+                    loader: 'babel-loader'
+                }, {
+                    loader: 'imports-loader?this=>window'
+                }]
             }, {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
