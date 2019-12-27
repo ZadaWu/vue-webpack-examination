@@ -1,11 +1,13 @@
 let path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserJSPlugin = require('terser-webpack-plugin');
 module.exports = {
     entry: {
-        main: './src/index.js'
-        // sub: './src/index.js'
+        main: './src/index.js',
+        sub: './src/index1.js'
     },
     output: {
         filename: "[name].js", //name 这里name指的就是前面entry中对应的main和sub
@@ -43,6 +45,7 @@ module.exports = {
                 test: /\.scss$/,
                 use: [
                     'style-loader', // 将 JS 字符串生成为 style 节点
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         // 查询参数 importLoaders，用于配置「css-loader 作用于 @import 的资源之前」有多少个 loader
@@ -64,6 +67,7 @@ module.exports = {
                 use: [
                     // 'vue-style-loader',
                     'style-loader',
+                    MiniCssExtractPlugin.loader,
                     'css-loader',
                     'postcss-loader'
                 ]
@@ -83,7 +87,8 @@ module.exports = {
         }),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].css' //打包后的css文件名
+            filename: '[name].css', //打包后的css文件名
+            chunkFilename: '[name].chunk.css'
         })
     ],
     optimization: {
@@ -95,7 +100,7 @@ module.exports = {
             maxAsyncRequests: 5, // 默认是5，指的是同时加载的模块数最大是5个
             maxInitialRequests: 3, // 指入口文件的最大并行请求数，意思是入口文件引入的库如果做代码分割也最多只能分割出3个js文件，超过3个就不会做代码分割了，这些配置一般按照默认配置来即可
             automaticNameDelimiter: '~', //意思是打包生成后的文件中间使用什么连接符
-            name: true,//配置true，意思是将根据块和缓存组密钥自动生成名称，一般采用默认值
+            name: true, //配置true，意思是将根据块和缓存组密钥自动生成名称，一般采用默认值
             cacheGroups: {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
@@ -109,6 +114,10 @@ module.exports = {
                     filename: 'common.js'
                 }
             }
-        }
+        },
+        minimizer: [
+            new TerserJSPlugin({}),
+            new OptimizeCSSAssetsPlugin({})
+        ]
     },
 };

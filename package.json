@@ -1,7 +1,8 @@
 {
   "name": "vue-webpack-examination",
   "sideEffects": [
-    "@babel/polyfill"
+    "@babel/polyfill",
+    "*.css"
   ],
   "version": "1.0.0",
   "description": "考试问卷",
@@ -40,11 +41,13 @@
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "^0.8.2",
     "node-sass": "^4.13.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-loader": "^3.0.0",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
     "sass-loader": "^8.0.0",
     "style-loader": "^1.0.0",
+    "terser-webpack-plugin": "^2.3.1",
     "url-loader": "^2.3.0",
     "vue": "^2.6.10",
     "vue-loader": "^15.7.2",

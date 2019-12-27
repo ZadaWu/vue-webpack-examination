@@ -16,12 +16,12 @@
 // getComponent().then(ele => {
 //     document.body.appendChild(ele);
 // })
-
+import './style.css'
 // 同步引入lodash
 // import _ from 'lodash';
-// var ele = document.createElement('div');
-// ele.innerHTML = _.join(['Hello', 'World'], '-');
-// document.body.appendChild(ele);
+var ele = document.createElement('div');
+ele.innerHTML = _.join(['Hello', 'World'], '-');
+document.body.appendChild(ele);
 
 // function getComponent() {
 //     return import(/*webpackChunkName:"lodash" */'lodash').then(_ => {
