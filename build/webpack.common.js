@@ -6,8 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
 module.exports = {
     entry: {
-        main: './src/index.js',
-        sub: './src/index1.js'
+        main: './src/index.js'
     },
     output: {
         filename: "[name].js", //name 这里name指的就是前面entry中对应的main和sub
@@ -105,19 +104,13 @@ module.exports = {
                 vendors: {
                     test: /[\\/]node_modules[\\/]/,
                     priority: -10,
-                    // filename: 'vendors.js'
+                    filename: 'vendors.js'
                 },
                 default: {
                     // minChunks: 2,
                     priority: -20,
                     reuseExistingChunk: true, // 以这个参数的意思是如果一个模块已经被打包过了，如果再打包的时候就忽略这个模块，直接使用之前被打包好的那个
                     filename: 'common.js'
-                },
-                styles: {
-                    name: 'styles',
-                    test: /\.css$/,
-                    chunks: "all",
-                    enforce: true //意思是忽略掉默认的一些参数，只要是css文件就做代码的拆分
                 }
             }
         },
