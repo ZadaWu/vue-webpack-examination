@@ -9,7 +9,7 @@ module.exports = {
         main: './src/index.js'
     },
     output: {
-        filename: "[name].js", //name 这里name指的就是前面entry中对应的main和sub
+        // filename: "[name].js", //name 这里name指的就是前面entry中对应的main和sub
         path: path.resolve(__dirname, '../dist')
     },
     module: {
