@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c0781a1b-beda-417f-8bc1-ccf4772f1988" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/ui.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/webpack.common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/webpack.dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/webpack.dev.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/webpack.prod.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/webpack.prod.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +16,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -87,7 +87,7 @@
       <workItem from="1577097537883" duration="1372000" />
       <workItem from="1577153894069" duration="6145000" />
       <workItem from="1577257174727" duration="176000" />
-      <workItem from="1577416468242" duration="4980000" />
+      <workItem from="1577416468242" duration="5499000" />
     </task>
     <servers />
   </component>

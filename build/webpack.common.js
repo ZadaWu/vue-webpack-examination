@@ -4,6 +4,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserJSPlugin = require('terser-webpack-plugin');
+const webpack = require('webpack');
 module.exports = {
     entry: {
         main: './src/index.js'
@@ -88,6 +89,10 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].css', //打包后的css文件名
             chunkFilename: '[name].chunk.css'
+        }),
+        new webpack.ProvidePlugin({
+            $: 'jquery',
+            join: ['lodash', 'join']
         })
     ],
     optimization: {
